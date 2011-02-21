@@ -1,0 +1,16 @@
+Todo
+
+ * Allow model objects to be stored by alias.
+ * Implement unix wildcards in node paths.
+ * Docblocks all the way across the sky.
+ * 100% test coverage.
+ * Customizable table object and join table names.
+ * Try to force the left JOIN in AcpBehavior to remove the necessity of the after find method.
+ * Create Post fixture for testing AcpBehavior.
+ * Make sure all $model in behaviors are $m.
+ * Make sure all model calls are to the plugins models and not AppModel.
+ * Empty create parameters, data passed to model in save().
+ * Remove aro_id from fields in contain conditions.
+ * Make AcpBehavior before find act more like nodes in AclBehavior.
+ * Build paths to new node when adding new records.
+ * Remove node relationships when automatically deleting records in acp behavior.
