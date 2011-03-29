@@ -1,16 +1,22 @@
+Introduction
+
+Acp (Access Control Plugin) is a simplified and unintrusive replacement for the default CakePHP ACL.
+
+Installation
+
+
+
 Todo
 
  * Allow model objects to be stored by alias.
  * Implement unix wildcards in node paths.
  * Docblocks all the way across the sky.
- * 100% test coverage.
+ * 100% test coverage. * DONE!
  * Customizable table object and join table names.
- * Try to force the left JOIN in AcpBehavior to remove the necessity of the after find method.
- * Create Post fixture for testing AcpBehavior.
- * Make sure all $model in behaviors are $m.
- * Make sure all model calls are to the plugins models and not AppModel.
- * Empty create parameters, data passed to model in save().
+ * Try to force the mysql left JOIN in AcpBehavior to remove the necessity of the afterFind method.
+ * Create Post fixture for testing AcpBehavior. * DONE!
+ * Make sure all $model in behaviors are $m. * DONE!
  * Remove aro_id from fields in contain conditions.
- * Make AcpBehavior before find act more like nodes in AclBehavior.
+ * Make AcpBehavior beforeFind act more like nodes in AclBehavior.
  * Build paths to new node when adding new records.
- * Remove node relationships when automatically deleting records in acp behavior.
+ * Remove node relationships when automatically deleting records in AcpBehavior.
