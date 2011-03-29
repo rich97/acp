@@ -6,35 +6,35 @@ Installation
 
 I don't have time to write a full on installation tutorial right now so for the time being I'll show a simple implementation and explain it line-by-line. Note that this example is showing integration with Authsome. But I'm sure it can be adapted to work with CakePHP's auth.
 
-	1.  protected $_allow = array();
-	2.
-	3.  public function beforeFilter() {
-	4.		$currentRoute = array(
-	5.			'plugin' => $this->params['plugin'],
-	6.			'controller' => $this->params['controller'],
-	7.			'action' => $this->params['action']
-	8.		);
-	9.
-	10.		if (!in_array($currentRoute['action'], $this->_allow)) {
-	11.			if (!$user = $this->Authsome->get()) {
-	12.				// User is not logged in.
-	13.			} else {
-	14.				$user_id = Authsome::get('User.id');
-	15.				$acl_routes = implode('/', array_merge(array('action'), array_values($currentRoute)));
-	16.				$acl_user = "model/User:1";
-	17.
-	18.				if ($user_id === 1) {
-	19.					$this->Aro->update($acl_user);
-	20.					$this->Aco->update($acl_routes);
-	21.					$this->Acl->update($acl_user, $acl_routes);
-	22.				}
-	23.
-	24.				if (!$this->Acl->check($acl_user, $acl_routes)) {
-	25.					// User does not have access to this part of the site.
-	26.				}
-	27.			}
-	28.		}
-	29. }
+    1.  protected $_allow = array();
+    2.
+    3.  public function beforeFilter() {
+    4.		$currentRoute = array(
+    5.			'plugin' => $this->params['plugin'],
+    6.			'controller' => $this->params['controller'],
+    7.			'action' => $this->params['action']
+    8.		);
+    9.
+    10.		if (!in_array($currentRoute['action'], $this->_allow)) {
+    11.			if (!$user = $this->Authsome->get()) {
+    12.				// User is not logged in.
+    13.			} else {
+    14.				$user_id = Authsome::get('User.id');
+    15.				$acl_routes = implode('/', array_merge(array('action'), array_values($currentRoute)));
+    16.				$acl_user = "model/User:1";
+    17.
+    18.				if ($user_id === 1) {
+    19.					$this->Aro->update($acl_user);
+    20.					$this->Aco->update($acl_routes);
+    21.					$this->Acl->update($acl_user, $acl_routes);
+    22.				}
+    23.
+    24.				if (!$this->Acl->check($acl_user, $acl_routes)) {
+    25.					// User does not have access to this part of the site.
+    26.				}
+    27.			}
+    28.		}
+    29. }
 
 Line 1:
 	Because Authsome does not provide an allowed actions array/option we do it ourselves. As this is the base controller/AppController I make an empty protected class property and whenever I want an extending controllers action to skip user authentication I simply add this property to the extending class containing an array of actions I want to skip.
