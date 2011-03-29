@@ -93,38 +93,40 @@ class NodeBehavior extends ModelBehavior {
         }
 
         if (!$this->node($m, $conditions)) {
-            $n = $this->get($m);
-            if (count($n) === 1) {
-                $e = NodeBehavior::$__extra[$m->alias];
-                foreach ($n as $node) {
-                    $parent_id = null;
-                    if ($node) {
-                        $parent = end($node);
-                        $parent_id = $parent[$m->alias]['id'];
-                    }
+            $n = (array) $this->get($m);
+			if (count($n < 1)) {
+				$n[][][$m->alias]['id'] = null;
+			}
 
-                    $m->Behaviors->attach('Tree');
-                    foreach ($e as $alias) {
-                        $model = $foreign_key = null;
-                        if (preg_match("/^([A-Z]{1})([A-z0-9]*)(:{1})([0-9])*$/", $alias)) {
-                            list($model, $foreign_key) = explode(':', $alias);
-                            $alias = null;
-                        }
-
-                        $m->create();
-                        $save = $m->save(array(
-                            $m->alias => array(
-                                'parent_id' => $parent_id,
-                                'model' => $model,
-                                'foreign_key' => $foreign_key,
-                                'alias' => $alias
-                            )
-                        ));
-                        $parent_id = $m->id;
-                    }
+            $e = NodeBehavior::$__extra[$m->alias];
+            foreach ($n as $node) {
+                $parent_id = null;
+                if ($node) {
+                    $parent = end($node);
+                    $parent_id = $parent[$m->alias]['id'];
                 }
-                return true;
+
+                $m->Behaviors->attach('Tree');
+                foreach ($e as $alias) {
+                    $model = $foreign_key = null;
+                    if (preg_match("/^([A-Z]{1})([A-z0-9]*)(:{1})([0-9])*$/", $alias)) {
+                        list($model, $foreign_key) = explode(':', $alias);
+                        $alias = null;
+                    }
+
+                    $m->create();
+                    $save = $m->save(array(
+                        $m->alias => array(
+                            'parent_id' => $parent_id,
+                            'model' => $model,
+                            'foreign_key' => $foreign_key,
+                            'alias' => $alias
+                        )
+                    ));
+                    $parent_id = $m->id;
+                }
             }
+            return true;
         }
         return false;
     }
