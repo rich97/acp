@@ -1,8 +1,8 @@
-Introduction
+# Introduction
 
 Acp (Access Control Plugin) is a simplified and unintrusive replacement for the default CakePHP ACL.
 
-Installation
+# Installation
 
 I don't have time to write a full on installation tutorial right now so for the time being I'll show a simple implementation and explain it line-by-line. Note that this example is showing integration with Authsome. But I'm sure it can be adapted to work with CakePHP's auth.
 
@@ -36,24 +36,24 @@ I don't have time to write a full on installation tutorial right now so for the 
     28.		}
     29. }
 
-Line 1:
-	Because Authsome does not provide an allowed actions array/option we do it ourselves. As this is the base controller/AppController I make an empty protected class property and whenever I want an extending controllers action to skip user authentication I simply add this property to the extending class containing an array of actions I want to skip.
-Line 3:
-	The beforeFilter of the [Plugin]AppController any extending classes must call parent::beforeFilter() if they use it themselves.
-Lines 4-8:
-	Keep track of where we are in the application on every request.
-Line 10:
-	This is where we check the value of Line 1 if it is not empty and the action is named as one to skip auth then we dont bother.
-Line 12:
-	The user authentication has failed, handle it however you want.
-Lines 14-16:
-	Get the user ID and generate the Path for the Requester and the Controlled objects. Note that the prefix of 'model/' and 'action/' are not required I just think is tidyer.
-Lines 18-22:
-	During development you are not going to want to be constantly managing Aro and Aco nodes. These few lines mean that if you are logged in as a user with an ID of 1 then you will automatically populate the Aro/Aco/AroAcos tables with your own account, any action you visit and create a relationship between the two.
-Line 25:
-	The ACL test failed, this $acl_user does not have access to $acl_route. Handle that however you want.
+*Line 1:*
+Because Authsome does not provide an allowed actions array/option we do it ourselves. As this is the base controller/AppController I make an empty protected class property and whenever I want an extending controllers action to skip user authentication I simply add this property to the extending class containing an array of actions I want to skip.
+*Line 3:*
+The beforeFilter of the [Plugin]AppController any extending classes must call parent::beforeFilter() if they use it themselves.
+*Lines 4-8:*
+Keep track of where we are in the application on every request.
+*Line 10:*
+This is where we check the value of Line 1 if it is not empty and the action is named as one to skip auth then we dont bother.
+*Line 12:*
+The user authentication has failed, handle it however you want.
+*Lines 14-16:*
+Get the user ID and generate the Path for the Requester and the Controlled objects. Note that the prefix of 'model/' and 'action/' are not required I just think is tidyer.
+*Lines 18-22:*
+During development you are not going to want to be constantly managing Aro and Aco nodes. These few lines mean that if you are logged in as a user with an ID of 1 then you will automatically populate the Aro/Aco/AroAcos tables with your own account, any action you visit and create a relationship between the two.
+*Line 25:*
+The ACL test failed, this $acl_user does not have access to $acl_route. Handle that however you want.
 
-Todo
+# Todo
 
  * Allow model objects to be stored by alias.
  * Implement unix wildcards in node paths.
